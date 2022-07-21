@@ -4,7 +4,9 @@ namespace Rollout.Lib.Interfaces;
 
 internal interface IFeatureStorage
 {
-    Task<Feature> GetFeature(string featureName);
+    Task<Feature?> GetFeature(string featureName);
+
+    Task<IList<Feature>> GetAllFeatures();
 
     Task StoreFeature(Feature feature);
 
