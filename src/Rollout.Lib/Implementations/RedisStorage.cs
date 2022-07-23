@@ -1,8 +1,11 @@
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Rollout.Lib.Exceptions;
 using Rollout.Lib.Interfaces;
 using Rollout.Lib.Models;
 using StackExchange.Redis;
+
+[assembly: InternalsVisibleTo("Rollout.Lib.UnitTests")]
 
 namespace Rollout.Lib.Implementations;
 
@@ -48,7 +51,7 @@ internal class RedisStorage : IFeatureStorage
     {
         if (string.IsNullOrEmpty(feature?.Name))
         {
-            throw new NullFeatureName("Feature name cannot be null or empty");
+            throw new NullFeatureName();
         }
 
         var db = _redis.GetDatabase();

@@ -4,6 +4,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{197FABC3-458
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rollout.Lib", "src\Rollout.Lib\Rollout.Lib.csproj", "{0F0194C7-8B43-4C0C-AC25-05707BD2FFB8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{356E2D31-D847-4E1A-AFF7-7FFD4C81A33F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rollout.Lib.UnitTests", "tests\Rollout.Lib.UnitTests\Rollout.Lib.UnitTests.csproj", "{81ED3737-4F54-40B6-85D6-C3821283AC64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -11,11 +15,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0F0194C7-8B43-4C0C-AC25-05707BD2FFB8} = {197FABC3-4582-43F5-83B6-9E7DB120A5CF}
+		{81ED3737-4F54-40B6-85D6-C3821283AC64} = {356E2D31-D847-4E1A-AFF7-7FFD4C81A33F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0F0194C7-8B43-4C0C-AC25-05707BD2FFB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F0194C7-8B43-4C0C-AC25-05707BD2FFB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F0194C7-8B43-4C0C-AC25-05707BD2FFB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F0194C7-8B43-4C0C-AC25-05707BD2FFB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81ED3737-4F54-40B6-85D6-C3821283AC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81ED3737-4F54-40B6-85D6-C3821283AC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81ED3737-4F54-40B6-85D6-C3821283AC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81ED3737-4F54-40B6-85D6-C3821283AC64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
