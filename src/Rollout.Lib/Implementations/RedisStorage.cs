@@ -36,7 +36,7 @@ internal class RedisStorage : IFeatureStorage
             var server = _redis.GetServer(endpoint);
             await foreach (var key in server.KeysAsync(pattern: KeyPrefix + "*"))
             {
-                key.Append(key);
+                keys.Add(key);
             }
         }
 

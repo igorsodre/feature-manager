@@ -4,7 +4,7 @@ using StackExchange.Redis;
 namespace Rollout.Lib.UnitTests;
 
 [Collection("SingleRedisInstance")]
-public class TestBase : IClassFixture<RedisFixture>, IAsyncDisposable
+public class TestBase : IClassFixture<RedisFixture>, IDisposable
 {
     private readonly RedisFixture _fixture;
 
@@ -19,8 +19,8 @@ public class TestBase : IClassFixture<RedisFixture>, IAsyncDisposable
         Storage = new RedisStorage(Redis);
     }
 
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await _fixture.ResetRedis();
+        _fixture.ResetRedis().GetAwaiter().GetResult();
     }
 }
