@@ -1,12 +1,30 @@
+using System.Runtime.CompilerServices;
 using Rollout.Lib.Interfaces;
+using Rollout.Lib.Models;
+
+[assembly: InternalsVisibleTo("Rollout.Lib.UnitTests")]
 
 namespace Rollout.Lib.Implementations;
 
-class FeatureManager : IFeatureManager
+internal class FeatureManager : IFeatureManager
 {
-    public Task SetPercentage(string featureName, decimal percentage)
+    private readonly IFeatureStorage _featureStorage;
+
+    public FeatureManager(IFeatureStorage featureStorage)
     {
-        throw new NotImplementedException();
+        _featureStorage = featureStorage;
+    }
+
+    public async Task SetPercentage(string featureName, decimal percentage)
+    {
+        if (string.IsNullOrEmpty(featureName))
+        {
+            return;
+        }
+
+        var feature = await _featureStorage.GetFeature(featureName) ?? new Feature(featureName);
+        feature.Percentage = Math.Max(Math.Min(percentage, 100), 0);
+        await _featureStorage.StoreFeature(feature);
     }
 
     public Task SetGroups(string featureName, IList<string> groups)
