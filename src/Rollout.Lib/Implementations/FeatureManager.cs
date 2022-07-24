@@ -67,9 +67,21 @@ internal class FeatureManager : IFeatureManager
         await _featureStorage.StoreFeature(feature);
     }
 
-    public Task SetUsers(string featureName, IList<string> users)
+    public async Task SetUsers(string featureName, IList<string> users)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(featureName))
+        {
+            return;
+        }
+
+        if (!users.Any())
+        {
+            return;
+        }
+
+        var feature = await _featureStorage.GetFeature(featureName) ?? new Feature(featureName);
+        feature.Users = feature.Users.Concat(users).Distinct().ToList();
+        await _featureStorage.StoreFeature(feature);
     }
 
     public Task RemoveUsers(string featureName, IList<string> users)
