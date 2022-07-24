@@ -44,9 +44,27 @@ internal class FeatureManager : IFeatureManager
         await _featureStorage.StoreFeature(feature);
     }
 
-    public Task RemoveGroups(string featureName, IList<string> groups)
+    public async Task RemoveGroups(string featureName, IList<string> groups)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(featureName))
+        {
+            return;
+        }
+
+        if (!groups.Any())
+        {
+            return;
+        }
+
+        var feature = await _featureStorage.GetFeature(featureName);
+        if (feature is null)
+        {
+            return;
+        }
+
+        feature.Groups = feature.Groups.Except(groups).ToList();
+
+        await _featureStorage.StoreFeature(feature);
     }
 
     public Task SetUsers(string featureName, IList<string> users)

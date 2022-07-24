@@ -104,4 +104,29 @@ public class FeatureManagerSetGroupsTests : TestBase
         feature!.Name.Should().Be(featureName);
         feature.Groups.Should().BeEquivalentTo(firstGroup.Concat(secondGroup));
     }
+
+    [Fact]
+    public async Task RemoveGroups_RemovesGroupsFromFeature()
+    {
+        // Arrange
+        const string featureName = "test";
+        var groups = new List<string>
+        {
+            "group1",
+            "group2",
+            "group3"
+        };
+
+        await _featureManager.SetGroups(featureName, groups);
+
+        // Act
+        await _featureManager.RemoveGroups(featureName, new[] { "group2", "group1" });
+
+        // Assert
+        var feature = await Storage.GetFeature(featureName);
+
+        feature.Should().NotBeNull();
+        feature!.Name.Should().Be(featureName);
+        feature.Groups.Should().BeEquivalentTo("group3");
+    }
 }

@@ -12,7 +12,7 @@ namespace Rollout.Lib.Implementations;
 internal class RedisStorage : IFeatureStorage
 {
     private readonly IConnectionMultiplexer _redis;
-    private const string KeyPrefix = "___feature___";
+    private const string KeyPrefix = "___feature___:";
 
     public RedisStorage(IConnectionMultiplexer redis)
     {
@@ -22,7 +22,7 @@ internal class RedisStorage : IFeatureStorage
     public async Task<Feature?> GetFeature(string featureName)
     {
         var db = _redis.GetDatabase();
-        var json = await db.StringGetAsync(KeyPrefix + ":" + featureName);
+        var json = await db.StringGetAsync(KeyPrefix + featureName);
         return json.IsNullOrEmpty ? null : JsonSerializer.Deserialize<Feature>(json!);
     }
 
@@ -56,17 +56,17 @@ internal class RedisStorage : IFeatureStorage
 
         var db = _redis.GetDatabase();
         var stringFeature = JsonSerializer.Serialize(feature);
-        await db.StringSetAsync(KeyPrefix + ":" + feature.Name, stringFeature);
+        await db.StringSetAsync(KeyPrefix + feature.Name, stringFeature);
     }
 
     public async Task RemoveFeature(string featureName)
     {
         if (string.IsNullOrEmpty(featureName))
         {
-            throw new NullFeatureName("Feature name cannot be null or empty");
+            throw new NullFeatureName();
         }
 
         var db = _redis.GetDatabase();
-        await db.KeyDeleteAsync(KeyPrefix + ":" + featureName);
+        await db.KeyDeleteAsync(KeyPrefix + featureName);
     }
 }
