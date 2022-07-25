@@ -107,9 +107,40 @@ internal class FeatureManager : IFeatureManager
         await _featureStorage.StoreFeature(feature);
     }
 
-    public Task<bool> IsActiveFor(string featureName, string? user = null, string? group = null)
+    public async Task<bool> IsActiveFor(string featureName, string? user = null, string? group = null)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(featureName))
+        {
+            return false;
+        }
+
+        var feature = await _featureStorage.GetFeature(featureName);
+        if (feature is null)
+        {
+            return false;
+        }
+
+        if (IsActiveForEveryOne(feature))
+        {
+            return true;
+        }
+
+        return IsActiveForGroup(feature, group) || IsActiveForUser(feature, user);
+    }
+
+    private bool IsActiveForGroup(Feature feature, string? group)
+    {
+        return !string.IsNullOrEmpty(group) && feature.Groups.Contains(group);
+    }
+
+    private bool IsActiveForUser(Feature feature, string? user)
+    {
+        return !string.IsNullOrEmpty(user) && feature.Users.Contains(user);
+    }
+
+    private bool IsActiveForEveryOne(Feature feature)
+    {
+        return feature.Percentage == 100 || feature.Groups.Contains("all");
     }
 
     public Task<IList<string>> GetAllFeatures()
