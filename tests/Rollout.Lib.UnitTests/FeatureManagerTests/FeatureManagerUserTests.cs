@@ -104,4 +104,29 @@ public class FeatureManagerUserTests : TestBase
         feature!.Name.Should().Be(featureName);
         feature.Users.Should().BeEquivalentTo(firstUsers.Concat(secondUsers));
     }
+
+    [Fact]
+    public async Task RemoveUsers_RemovesUsersFromFeature()
+    {
+        // Arrange
+        const string featureName = "test";
+        var groups = new List<string>
+        {
+            "user1",
+            "user2",
+            "user3"
+        };
+
+        await _featureManager.SetUsers(featureName, groups);
+
+        // Act
+        await _featureManager.RemoveUsers(featureName, new[] { "user2", "user1" });
+
+        // Assert
+        var feature = await Storage.GetFeature(featureName);
+
+        feature.Should().NotBeNull();
+        feature!.Name.Should().Be(featureName);
+        feature.Users.Should().BeEquivalentTo("user3");
+    }
 }

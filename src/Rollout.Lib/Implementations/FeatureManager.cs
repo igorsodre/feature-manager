@@ -84,9 +84,27 @@ internal class FeatureManager : IFeatureManager
         await _featureStorage.StoreFeature(feature);
     }
 
-    public Task RemoveUsers(string featureName, IList<string> users)
+    public async Task RemoveUsers(string featureName, IList<string> users)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(featureName))
+        {
+            return;
+        }
+
+        if (!users.Any())
+        {
+            return;
+        }
+
+        var feature = await _featureStorage.GetFeature(featureName);
+        if (feature is null)
+        {
+            return;
+        }
+
+        feature.Users = feature.Users.Except(users).ToList();
+
+        await _featureStorage.StoreFeature(feature);
     }
 
     public Task<bool> IsActiveFor(string featureName, string? user = null, string? group = null)
