@@ -1,4 +1,5 @@
 using FluentAssertions;
+using NSubstitute;
 using Rollout.Lib.Implementations;
 using Rollout.Lib.Interfaces;
 
@@ -7,10 +8,10 @@ namespace Rollout.Lib.UnitTests.FeatureManagerTests;
 public class FeatureManagerSetGroupsTests : TestBase
 {
     private readonly IFeatureManager _featureManager;
-
+    private readonly IStringToDecimalProvider _stringToDecimalProvider = Substitute.For<IStringToDecimalProvider>();
     public FeatureManagerSetGroupsTests(RedisFixture fixture) : base(fixture)
     {
-        _featureManager = new FeatureManager(Storage);
+        _featureManager = new FeatureManager(Storage, _stringToDecimalProvider);
     }
 
     [Fact]

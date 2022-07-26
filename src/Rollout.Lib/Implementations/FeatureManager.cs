@@ -1,18 +1,17 @@
-using System.Runtime.CompilerServices;
 using Rollout.Lib.Interfaces;
 using Rollout.Lib.Models;
-
-[assembly: InternalsVisibleTo("Rollout.Lib.UnitTests")]
 
 namespace Rollout.Lib.Implementations;
 
 internal class FeatureManager : IFeatureManager
 {
     private readonly IFeatureStorage _featureStorage;
+    private readonly IStringToDecimalProvider _stringToDecimalProvider;
 
-    public FeatureManager(IFeatureStorage featureStorage)
+    public FeatureManager(IFeatureStorage featureStorage, IStringToDecimalProvider stringToDecimalProvider)
     {
         _featureStorage = featureStorage;
+        _stringToDecimalProvider = stringToDecimalProvider;
     }
 
     public async Task SetPercentage(string featureName, decimal percentage)
@@ -135,7 +134,8 @@ internal class FeatureManager : IFeatureManager
 
     private bool IsActiveForUser(Feature feature, string? user)
     {
-        return !string.IsNullOrEmpty(user) && feature.Users.Contains(user);
+        return !string.IsNullOrEmpty(user) &&
+               (feature.Users.Contains(user) || _stringToDecimalProvider.Transform(user) < feature.Percentage);
     }
 
     private bool IsActiveForEveryOne(Feature feature)
