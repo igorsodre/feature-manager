@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Rollout.Lib.Implementations;
 using StackExchange.Redis;
 
@@ -8,15 +9,12 @@ public class TestBase : IClassFixture<RedisFixture>, IAsyncLifetime
 {
     private readonly RedisFixture _fixture;
 
-    protected IConnectionMultiplexer Redis { get; }
-
     internal RedisStorage Storage { get; }
 
     public TestBase(RedisFixture fixture)
     {
         _fixture = fixture;
-        Redis = fixture.Redis;
-        Storage = new RedisStorage(Redis);
+        Storage = new RedisStorage(fixture.Redis);
     }
 
     public Task InitializeAsync()
@@ -26,6 +24,6 @@ public class TestBase : IClassFixture<RedisFixture>, IAsyncLifetime
 
     public async Task DisposeAsync()
     {
-        await _fixture.ResetRedis();
+        await _fixture.DisposeRedis();
     }
 }

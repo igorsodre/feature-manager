@@ -1,23 +1,40 @@
+using DotNet.Testcontainers.Builders;
+using DotNet.Testcontainers.Configurations;
+using DotNet.Testcontainers.Containers;
 using Rollout.Lib.UnitTests.Helpers;
 using StackExchange.Redis;
 
 namespace Rollout.Lib.UnitTests;
 
-public class RedisFixture
+public class RedisFixture : IAsyncLifetime
 {
-    public IConnectionMultiplexer Redis { get; }
+    private IConnectionMultiplexer? _redis;
 
-    public RedisFixture()
+    public IConnectionMultiplexer Redis
     {
-        Redis = ConnectionMultiplexer.Connect(SettingsHelper.GetRedisConnectionString());
+        get { return _redis ??= ConnectionMultiplexer.Connect($"{_container.ConnectionString},allowAdmin=true"); }
     }
 
-    public async Task ResetRedis()
+    private readonly RedisTestcontainer _container = new TestcontainersBuilder<RedisTestcontainer>()
+        .WithDatabase(new RedisTestcontainerConfiguration())
+        .Build();
+
+    public async Task DisposeRedis()
     {
         foreach (var endpoint in Redis.GetEndPoints())
         {
             var server = Redis.GetServer(endpoint);
             await server.FlushAllDatabasesAsync();
         }
+    }
+
+    public async Task InitializeAsync()
+    {
+        await _container.StartAsync();
+    }
+
+    public async Task DisposeAsync()
+    {
+        await _container.DisposeAsync();
     }
 }
