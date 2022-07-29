@@ -1,6 +1,6 @@
 namespace Rollout.Lib.Models;
 
-internal class Feature
+public sealed class Feature
 {
     public string Name { get; set; } = string.Empty;
 

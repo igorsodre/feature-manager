@@ -1,3 +1,5 @@
+using Rollout.Lib.Models;
+
 namespace Rollout.Lib.Interfaces;
 
 public interface IFeatureManager
@@ -14,7 +16,7 @@ public interface IFeatureManager
 
     Task<bool> IsActiveFor(string featureName, string? user = null, string? group = null);
 
-    Task<IList<string>> GetAllFeatures();
+    Task<IList<Feature>> GetAllFeatures();
 
     Task Deactivate(string featureName);
 }
