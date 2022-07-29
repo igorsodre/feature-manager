@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Rollout.Lib.Implementations;
 using Rollout.Lib.Interfaces;
 
 namespace Rollout.Lib.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class Services
 {
     public static IServiceCollection AddRollout(this IServiceCollection services)
