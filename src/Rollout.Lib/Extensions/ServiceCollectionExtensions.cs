@@ -2,11 +2,12 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Rollout.Lib.Implementations;
 using Rollout.Lib.Interfaces;
+using Rollout.Lib.UI.Common;
 
 namespace Rollout.Lib.Extensions;
 
 [ExcludeFromCodeCoverage]
-public static class Services
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddRollout(this IServiceCollection services)
     {
@@ -17,6 +18,13 @@ public static class Services
                 return new FeatureManager(storage, new UniformStringToDecimalProvider());
             }
         );
+        return services;
+    }
+
+    public static IServiceCollection AddRolloutUi(this IServiceCollection services)
+    {
+        services.AddRazorPages();
+        services.AddScoped<ViewRender>();
         return services;
     }
 }
