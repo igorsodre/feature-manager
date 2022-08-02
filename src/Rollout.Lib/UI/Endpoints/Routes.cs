@@ -8,11 +8,26 @@ public static class Routes
 {
     public static async Task Home(
         HttpContext context,
-        [FromServices] ViewRender renderer , IFeatureManager featureManager
+        [FromServices] ViewRender renderer,
+        IFeatureManager featureManager
     )
     {
         var features = await featureManager.GetAllFeatures();
         var content = await renderer.Render("~/UI/Pages/Index.cshtml", features);
+
+        var response = context.Response;
+        response.ContentType = "text/html";
+        await response.WriteAsync(content);
+    }
+
+    public static async Task AddFeature(
+        HttpContext context,
+        [FromServices] ViewRender renderer,
+        IFeatureManager featureManager
+    )
+    {
+        var features = await featureManager.GetAllFeatures();
+        var content = await renderer.Render("~/UI/Pages/AddFeature.cshtml", features);
 
         var response = context.Response;
         response.ContentType = "text/html";
