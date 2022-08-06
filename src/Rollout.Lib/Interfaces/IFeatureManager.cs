@@ -16,6 +16,8 @@ public interface IFeatureManager
 
     Task<bool> IsActiveFor(string featureName, string? user = null, string? group = null);
 
+    Task<Feature?> GetFeature(string featureName);
+
     Task<IList<Feature>> GetAllFeatures();
 
     Task Deactivate(string featureName);

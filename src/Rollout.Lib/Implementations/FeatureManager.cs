@@ -143,7 +143,6 @@ internal class FeatureManager : IFeatureManager
         return feature.Percentage == 100 || feature.Groups.Contains("all");
     }
 
-
     public async Task Deactivate(string featureName)
     {
         if (string.IsNullOrEmpty(featureName))
@@ -158,6 +157,11 @@ internal class FeatureManager : IFeatureManager
         }
 
         await _featureStorage.StoreFeature(new Feature(featureName) { Description = feature.Description });
+    }
+
+    public Task<Feature?> GetFeature(string featureName)
+    {
+        return _featureStorage.GetFeature(featureName);
     }
 
     public Task<IList<Feature>> GetAllFeatures()
