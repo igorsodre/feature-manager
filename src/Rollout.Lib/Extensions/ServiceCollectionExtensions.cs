@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddRolloutUi(this IServiceCollection services)
     {
+        services.ConfigureOptions(typeof(UiConfigureOptions));
         services.AddRazorPages();
         services.AddScoped<ViewRender>();
         return services;

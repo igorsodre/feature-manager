@@ -1,3 +1,4 @@
+using Demo;
 using Rollout.Lib.Extensions;
 using StackExchange.Redis;
 
@@ -13,6 +14,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(
     _ => ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis"))
 );
 
+builder.Services.AddHostedService<PopulateFeatues>();
+
 builder.Services.AddRollout();
 builder.Services.AddRolloutUi();
 
@@ -27,6 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();

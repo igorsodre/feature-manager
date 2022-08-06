@@ -1,37 +1,57 @@
+@using System.Globalization
 @using Rollout.Lib.Models
 @model IList<Feature>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet" />
 
-    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet" />
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/styles/style.css" />
+
+    <title>Rollout Index</title>
   </head>
-  <body class="bg-dark">
-    <main class="container p-3 mb-2 mt-5 text-white">
-      <table class="table">
-        <thead>
-          <tr class="table-dark">
-            <th scope="col">Name</th>
-            <th scope="col">Percentage</th>
-            <th scope="col">Users</th>
-            <th scope="col">Groups</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="table-dark">
-            <th>Test Name</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Test</td>
-            <td>Test Four</td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
+  <body>
+    <div class="content">
+      <div class="container">
+        <h2 class="mb-5">Rollout List</h2>
+
+        <div class="table-responsive">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Percentage</th>
+                <th scope="col">Users</th>
+                <th scope="col">Groups</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var feature in Model)
+              {
+                <tr scope="row">
+                  <th>@feature.Name</th>
+                  <td>@feature.Percentage%</td>
+                  <td>@string.Join(", ", feature.Users)</td>
+                  <td>@string.Join(", ", feature.Groups)</td>
+                  <td>
+                    <a href="#" class="more p-md-3">Details</a>
+                    <a href="#" class="more">Remove</a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
