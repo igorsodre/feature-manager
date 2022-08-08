@@ -1,5 +1,5 @@
 using Demo;
-using Rollout.Lib.Extensions;
+using Rollout.UI.Extensions;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +16,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(
 
 builder.Services.AddHostedService<PopulateFeatues>();
 
-builder.Services.AddRollout();
-builder.Services.AddRolloutUi();
+builder.Services.AddRolloutUi(builder.WebHost);
 
 var app = builder.Build();
 
@@ -38,7 +37,7 @@ app.UseAuthorization();
 app.UseEndpoints(
     endpoints => {
         endpoints.MapControllers();
-        endpoints.MapRollout();
+        endpoints.UserRolloutUi();
     }
 );
 

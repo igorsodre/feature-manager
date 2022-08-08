@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Rollout.Lib.Implementations;
 using Rollout.Lib.Interfaces;
-using Rollout.Lib.UI.Common;
 
 namespace Rollout.Lib.Extensions;
 
@@ -18,14 +17,6 @@ public static class ServiceCollectionExtensions
                 return new FeatureManager(storage, new UniformStringToDecimalProvider());
             }
         );
-        return services;
-    }
-
-    public static IServiceCollection AddRolloutUi(this IServiceCollection services)
-    {
-        services.ConfigureOptions(typeof(UiConfigureOptions));
-        services.AddRazorPages();
-        services.AddScoped<ViewRender>();
         return services;
     }
 }

@@ -2,7 +2,7 @@ using Rollout.Lib.Models;
 
 namespace Rollout.Lib.Interfaces;
 
-internal interface IFeatureStorage
+public interface IFeatureStorage
 {
     Task<Feature?> GetFeature(string featureName);
 

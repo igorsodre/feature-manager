@@ -164,6 +164,11 @@ internal class FeatureManager : IFeatureManager
         return _featureStorage.GetFeature(featureName);
     }
 
+    public async Task SetFeature(Feature feature)
+    {
+        await _featureStorage.StoreFeature(feature);
+    }
+
     public Task<IList<Feature>> GetAllFeatures()
     {
         return _featureStorage.GetAllFeatures();
