@@ -21,7 +21,7 @@ public static class RolloutUiExtensions
     /// </summary>
     /// <param name="endpoints"></param>
     /// <returns></returns>
-    public static IEndpointRouteBuilder UserRolloutUi(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder MapRolloutUi(this IEndpointRouteBuilder endpoints)
     {
         endpoints.MapRazorPages();
         return endpoints;
