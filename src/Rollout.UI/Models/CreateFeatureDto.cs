@@ -10,7 +10,7 @@ public class CreateFeatureDto
     [Range(0, 100)]
     public decimal Percentage { get; set; }
     
-    public string Groups { get; set; } = string.Empty;
+    public string? Groups { get; set; } = string.Empty;
 
-    public string Users { get; set; } = string.Empty;
+    public string? Users { get; set; } = string.Empty;
 }

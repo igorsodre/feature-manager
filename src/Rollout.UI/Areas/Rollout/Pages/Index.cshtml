@@ -4,133 +4,65 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet" />
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet" />
 
-        <!-- Bootstrap CSS -->
-        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet" />
 
-        <!-- Style -->
-        <link rel="stylesheet" href="~/_content/Rollout.UI/style.css" />
+    <!-- Style -->
+    <link rel="stylesheet" href="~/_content/Rollout.UI/style.css" />
 
-        <title>Rollout Index</title>
-    </head>
-    <body>
-        <div class="content">
-            <div class="container">
-                <h2 class="mb-5">Rollout List</h2>
+    <title>Rollout Index</title>
+  </head>
+  <body>
+    <div class="content">
+      <div class="container">
+        <div class="row">
 
-                <div class="table-responsive">
-                    <table class="table table-striped custom-table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Percentage</th>
-                                <th scope="col">Users</th>
-                                <th scope="col">Groups</th>
-                                <th scope="col" colspan="2">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var feature in Model.Features)
-                            {
-                                <tr scope="row">
-                                    <th>@feature.Name</th>
-                                    <td>@feature.Percentage%</td>
-                                    <td>@string.Join(", ", feature.Users)</td>
-                                    <td>@string.Join(", ", feature.Groups)</td>
-                                    <td>
-                                        <a asp-area="Rollout" asp-page="/Details" asp-route-featureName="@feature.Name" class="more m-r-45">Details</a>
-                                        <a href="#" class="more p-md-3">Remove</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+          <div class="col-9">
+            <h2 class="mb-5">Rollout List</h2>
+          </div>
+          <div class="col-3">
+            <a asp-area="Rollout" asp-page="/Details" asp-route-featureName="" class="btn btn-primary left">New Feature</a>
+          </div>
         </div>
-    </body>
-</html>
 
-@* *@
-@* @model Rollout.Lib.Models.Feature *@
-@* <!doctype html> *@
-@* <html lang="en"> *@
-@*   <head> *@
-@*     <meta charset="UTF-8"> *@
-@*     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"> *@
-@*     <meta http-equiv="X-UA-Compatible" content="ie=edge"> *@
-@*     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet"> *@
-@*     <link rel="stylesheet" href="~/styles/style.css" /> *@
-@* *@
-@*     <title>Add/Edit Feature</title> *@
-@*   </head> *@
-@*   <body> *@
-@*     <div class="content"> *@
-@*       <div class="container"> *@
-@*         <div class="wrapper wrapper--w900"> *@
-@*           <div class="card card-6"> *@
-@*             <div class="card-heading mt-"> *@
-@*               <h2 class="title">Feature details</h2> *@
-@*             </div> *@
-@*             <div class="card-body"> *@
-@*               <form method="POST"> *@
-@* *@
-@*                 <div class="form-row"> *@
-@*                   <div class="name">Feature Name</div> *@
-@*                   <div class="value"> *@
-@*                     <input class="input--style-6" type="text" name="feature-name" value="@Model.Name" /> *@
-@*                   </div> *@
-@*                 </div> *@
-@*                 <div class="form-row"> *@
-@*                   <div class="name">Percentage</div> *@
-@*                   <div class="value"> *@
-@*                     <div class="input-group"> *@
-@*                       <input class="input--style-6" type="number" min="0" max="100" name="Percentage" placeholder="15%" value="@Model.Percentage" /> *@
-@*                     </div> *@
-@*                   </div> *@
-@*                 </div> *@
-@* *@
-@*                 <div class="form-row"> *@
-@*                   <div class="name">Users</div> *@
-@*                   <div class="value"> *@
-@*                     <div class="input-group"> *@
-@*                       <textarea  *@
-@*                           class="textarea--style-6"  *@
-@*                           name="users"  *@
-@*                           placeholder="list of semicolon separated values. eg: user1;user2;user3" *@
-@*                           >@string.Join(";", Model.Users)</textarea> *@
-@*                     </div> *@
-@*                   </div> *@
-@*                 </div> *@
-@* *@
-@*                 <div class="form-row"> *@
-@*                   <div class="name">Groups</div> *@
-@*                   <div class="value"> *@
-@*                     <div class="input-group"> *@
-@*                       <textarea  *@
-@*                         class="textarea--style-6"  *@
-@*                         name="groups"  *@
-@*                         placeholder="list of semicolon separated values. eg: group1;group2;group3" *@
-@*                         >@string.Join(";", Model.Groups)</textarea> *@
-@*                     </div> *@
-@*                   </div> *@
-@*                 </div> *@
-@*               </form> *@
-@*             </div> *@
-@*             <div class="card-footer"> *@
-@*               <button class="btn btn--radius-2 btn--blue-2 m-r-45" type="submit">Save</button> *@
-@*               <a href="/internal/rollout-ui" class="btn btn--radius-2 btn--grey" type="submit">Back</a> *@
-@*             </div> *@
-@*           </div> *@
-@*         </div> *@
-@*       </div> *@
-@*     </div> *@
-@* *@
-@*   </body> *@
-@* </html> *@
+        <div class="table-responsive">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Percentage</th>
+                <th scope="col">Users</th>
+                <th scope="col">Groups</th>
+                <th scope="col" colspan="2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var feature in Model.Features)
+              {
+                <tr scope="row">
+                  <th>@feature.Name</th>
+                  <td>@feature.Percentage%</td>
+                  <td>@string.Join(", ", feature.Users)</td>
+                  <td>@string.Join(", ", feature.Groups)</td>
+                  <td>
+                    <a asp-area="Rollout" asp-page="/Details" asp-route-featureName="@feature.Name" class="more m-r-45">Details</a>
+                    <a asp-area="Rollout" asp-page="/Delete" asp-route-featureName="@feature.Name" class="more p-md-3" onclick="if (confirm('Delete selected feature?')){return true;}else{event.stopPropagation(); event.preventDefault();}">
+                      Remove
+                    </a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

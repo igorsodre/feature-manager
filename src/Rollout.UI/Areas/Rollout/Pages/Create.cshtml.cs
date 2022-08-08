@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Rollout.Lib.Interfaces;
+using Rollout.Lib.Models;
 using Rollout.UI.Models;
 
 namespace Rollout.UI.Areas.Rollout.Pages;
@@ -14,16 +15,25 @@ public class Create : PageModel
         _featureManager = featureManager;
     }
 
-    public async Task OnGet([FromForm] CreateFeatureDto model)
+    public void OnGet() { }
+
+    public async Task OnPost([FromForm] CreateFeatureDto model)
     {
         if (!ModelState.IsValid)
         {
-            Redirect($"Rollout/Details?featureName={model.Name}");
+            Response.Redirect($"Details?featureName={model.Name}");
             return;
         }
 
-        // await _featureManager.(model.Name);
+        var feature = new Feature(model.Name)
+        {
+            Users = string.IsNullOrEmpty(model.Users) ? new List<string>() : model.Users.Split(';').ToList(),
+            Groups = string.IsNullOrEmpty(model.Groups) ? new List<string>() : model.Groups.Split(';').ToList(),
+            Percentage = model.Percentage
+        };
 
-        Redirect("Rollout/Index");
+        await _featureManager.SetFeature(feature);
+
+        Response.Redirect("Index");
     }
 }
