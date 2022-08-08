@@ -10,7 +10,6 @@ public static class RolloutUiExtensions
 {
     public static IServiceCollection AddRolloutUi(this IServiceCollection services, IWebHostBuilder builder)
     {
-        // builder.UseWebRoot("wwwroot");
         builder.UseStaticWebAssets();
         services.AddRazorPages();
         services.AddRollout();
