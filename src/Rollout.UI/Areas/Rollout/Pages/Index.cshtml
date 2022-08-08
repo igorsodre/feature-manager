@@ -1,6 +1,7 @@
-@using System.Globalization
-@using Rollout.Lib.Models
-@model IList<Feature>
+﻿@page
+@model Rollout.UI.Areas.Rollout.Pages.IndexModel
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,14 +15,22 @@
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet" />
 
     <!-- Style -->
-    <link rel="stylesheet" href="~/styles/style.css" />
+    <link rel="stylesheet" href="~/_content/Rollout.UI/style.css" />
 
     <title>Rollout Index</title>
   </head>
   <body>
     <div class="content">
       <div class="container">
-        <h2 class="mb-5">Rollout List</h2>
+        <div class="row">
+
+          <div class="col-9">
+            <h2 class="mb-5">Rollout List</h2>
+          </div>
+          <div class="col-3">
+            <a asp-area="Rollout" asp-page="/Details" asp-route-featureName="" class="btn btn-primary left">New Feature</a>
+          </div>
+        </div>
 
         <div class="table-responsive">
           <table class="table table-striped custom-table">
@@ -35,7 +44,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach (var feature in Model)
+              @foreach (var feature in Model.Features)
               {
                 <tr scope="row">
                   <th>@feature.Name</th>
@@ -43,8 +52,10 @@
                   <td>@string.Join(", ", feature.Users)</td>
                   <td>@string.Join(", ", feature.Groups)</td>
                   <td>
-                    <a href="/internal/rollout-ui/new?featureName=@feature.Name" class="more m-r-45">Details</a>
-                    <a href="#" class="more p-md-3">Remove</a>
+                    <a asp-area="Rollout" asp-page="/Details" asp-route-featureName="@feature.Name" class="more m-r-45">Details</a>
+                    <a asp-area="Rollout" asp-page="/Delete" asp-route-featureName="@feature.Name" class="more p-md-3" onclick="if (confirm('Delete selected feature?')){return true;}else{event.stopPropagation(); event.preventDefault();}">
+                      Remove
+                    </a>
                   </td>
                 </tr>
               }

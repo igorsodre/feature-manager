@@ -164,6 +164,16 @@ internal class FeatureManager : IFeatureManager
         return _featureStorage.GetFeature(featureName);
     }
 
+    public Task SetFeature(Feature feature)
+    {
+        return _featureStorage.StoreFeature(feature);
+    }
+
+    public Task DeleteFeature(string featureName)
+    {
+        return _featureStorage.RemoveFeature(featureName);
+    }
+
     public Task<IList<Feature>> GetAllFeatures()
     {
         return _featureStorage.GetAllFeatures();

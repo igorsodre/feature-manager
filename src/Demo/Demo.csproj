@@ -11,7 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Rollout.Lib\Rollout.Lib.csproj" />
+      <ProjectReference Include="..\Rollout.UI\Rollout.UI.csproj" />
     </ItemGroup>
+
 
 </Project>

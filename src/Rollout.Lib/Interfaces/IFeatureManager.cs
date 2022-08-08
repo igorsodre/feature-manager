@@ -18,6 +18,10 @@ public interface IFeatureManager
 
     Task<Feature?> GetFeature(string featureName);
 
+    Task SetFeature(Feature feature);
+
+    Task DeleteFeature(string featureName);
+
     Task<IList<Feature>> GetAllFeatures();
 
     Task Deactivate(string featureName);

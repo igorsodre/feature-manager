@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Rollout.Lib.Implementations;
 using Rollout.Lib.Interfaces;
-using Rollout.Lib.UI.Common;
 
 namespace Rollout.Lib.Extensions;
 
@@ -21,11 +20,27 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddRolloutUi(this IServiceCollection services)
+    public static IServiceCollection AddRolloutWithCustomStorage<T>(this IServiceCollection services)
+        where T : class, IFeatureStorage
     {
-        services.ConfigureOptions(typeof(UiConfigureOptions));
-        services.AddRazorPages();
-        services.AddScoped<ViewRender>();
+        services.AddSingleton<IFeatureStorage, T>();
+        services.AddSingleton<IFeatureManager>(
+            svcs => {
+                var storage = svcs.GetRequiredService<IFeatureStorage>();
+                return new FeatureManager(storage, new UniformStringToDecimalProvider());
+            }
+        );
+        return services;
+    }
+
+    public static IServiceCollection
+        AddRolloutWithCustomStorageAndStringToDecimalProvider<TStorage, TStringToDecimalProvider>(
+            this IServiceCollection services
+        ) where TStorage : class, IFeatureStorage where TStringToDecimalProvider : class, IStringToDecimalProvider
+    {
+        services.AddSingleton<IFeatureStorage, TStorage>();
+        services.AddSingleton<IStringToDecimalProvider, TStringToDecimalProvider>();
+        services.AddSingleton<IFeatureManager, FeatureManager>();
         return services;
     }
 }

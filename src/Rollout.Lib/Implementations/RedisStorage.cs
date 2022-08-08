@@ -5,8 +5,6 @@ using Rollout.Lib.Interfaces;
 using Rollout.Lib.Models;
 using StackExchange.Redis;
 
-[assembly: InternalsVisibleTo("Rollout.Lib.UnitTests")]
-
 namespace Rollout.Lib.Implementations;
 
 internal class RedisStorage : IFeatureStorage

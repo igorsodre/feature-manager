@@ -1,4 +1,7 @@
-@model Rollout.Lib.Models.Feature
+@page "Details"
+@model Rollout.UI.Areas.Rollout.Pages.Details
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,7 +9,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
-    <link rel="stylesheet" href="~/styles/style.css" />
+    <link rel="stylesheet" href="~/_content/Rollout.UI/style.css" />
 
     <title>Add/Edit Feature</title>
   </head>
@@ -19,19 +22,19 @@
               <h2 class="title">Feature details</h2>
             </div>
             <div class="card-body">
-              <form method="POST">
+              <form method="post" asp-area="Rollout" asp-page="/Create">
 
                 <div class="form-row">
                   <div class="name">Feature Name</div>
                   <div class="value">
-                    <input class="input--style-6" type="text" name="feature-name" value="@Model.Name" />
+                    <input class="input--style-6" type="text" name="Name" value="@Model.Feature.Name" />
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="name">Percentage</div>
                   <div class="value">
                     <div class="input-group">
-                      <input class="input--style-6" type="number" min="0" max="100" name="Percentage" placeholder="15%" value="@Model.Percentage" />
+                      <input class="input--style-6" type="number" min="0" max="100" name="Percentage" placeholder="15%" value="@Model.Feature.Percentage" />
                     </div>
                   </div>
                 </div>
@@ -40,11 +43,11 @@
                   <div class="name">Users</div>
                   <div class="value">
                     <div class="input-group">
-                      <textarea 
-                          class="textarea--style-6" 
-                          name="users" 
+                      <textarea
+                          class="textarea--style-6"
+                          name="Users"
                           placeholder="list of semicolon separated values. eg: user1;user2;user3"
-                          >@string.Join(";", Model.Users)</textarea>
+                          >@string.Join(";", Model.Feature.Users)</textarea>
                     </div>
                   </div>
                 </div>
@@ -53,19 +56,19 @@
                   <div class="name">Groups</div>
                   <div class="value">
                     <div class="input-group">
-                      <textarea 
-                        class="textarea--style-6" 
-                        name="groups" 
+                      <textarea
+                        class="textarea--style-6"
+                        name="Groups"
                         placeholder="list of semicolon separated values. eg: group1;group2;group3"
-                        >@string.Join(";", Model.Groups)</textarea>
+                        >@string.Join(";", Model.Feature.Groups)</textarea>
                     </div>
                   </div>
                 </div>
+                <div class="card-footer">
+                  <button class="btn btn--radius-2 btn--blue-2 m-r-45" type="submit">Save</button>
+                  <a asp-area="Rollout" asp-page="/Index" class="btn btn--radius-2 btn--grey" type="submit">Back</a>
+                </div>
               </form>
-            </div>
-            <div class="card-footer">
-              <button class="btn btn--radius-2 btn--blue-2 m-r-45" type="submit">Save</button>
-              <a href="/internal/rollout-ui" class="btn btn--radius-2 btn--grey" type="submit">Back</a>
             </div>
           </div>
         </div>
