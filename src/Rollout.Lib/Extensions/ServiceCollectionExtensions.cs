@@ -20,10 +20,10 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddRolloutWithCustomStorage<T>(this IServiceCollection services)
-        where T : class, IFeatureStorage
+    public static IServiceCollection AddRolloutWithCustomStorage<TStorage>(this IServiceCollection services)
+        where TStorage : class, IFeatureStorage
     {
-        services.AddSingleton<IFeatureStorage, T>();
+        services.AddSingleton<IFeatureStorage, TStorage>();
         services.AddSingleton<IFeatureManager>(
             svcs => {
                 var storage = svcs.GetRequiredService<IFeatureStorage>();
